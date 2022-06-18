@@ -1,19 +1,43 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const Goal = require('./models/Goal');
+
 
 const app = express();
 app.use(express.json());
+
+
+const mongooseConnection = () => {
+    const uri = "mongodb+srv://root:root01@goals.ypytlu8.mongodb.net/goals?retryWrites=true&w=majority";
+    mongoose.connect(uri).then(res=>{
+        console.log("Connected To DB");
+    }).catch(err=>{
+        process.exit();
+    });
+}
 
 app.get("/", (req, res) => {
     res.send("server is up and running");
 });
 
-app.post("/create",(req, res) => {
-    const {goal,motivation,secretKey} = req.body;
-    console.log(req.body);
-    res.json({goal,motivation,secretKey});
+app.post("/create",async(req, res) => {
+    try{
+        const {goal,motivation,secretKey,keeper} = req.body;
+        const newGoal = await Goal.create({
+            goal,
+            motivation,
+            keeper
+        });
+        return res.json({isOkay:true,info:newGoal})
+    } catch(err) {
+        return res.json({isOkay:false,info:err.message});
+    }
+    
+
 });
 
 
-app.listen(8080,()=>{
+app.listen(8080,async ()=>{
+    await mongooseConnection();
     console.log("Server Started Running : 8080");
 });
