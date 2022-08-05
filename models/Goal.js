@@ -5,7 +5,8 @@ const goalSchema = new mongoose.Schema({
     motivation:String,
     startDate:{type:Date,default:Date.now},
     endData:{type:Date,default:Date.now},
-    keeper:String
+    keeper:String,
+    isCompleted:{type:Boolean,default:false}
 });
 
 const Goal = mongoose.model('Goal',goalSchema);
