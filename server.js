@@ -52,7 +52,9 @@ app.get("/get",async (req,res)=>{
 
 app.post('/completed',async (req,res)=>{
     try {
-        const info = await Goal.updateOne({id:req.body.id},{isCompleted:true});
+        const {id} = req.body;
+        const TRUE = true;
+        const info = await Goal.findByIdAndUpdate(id,{isCompleted:TRUE});
         return res.json({isOkay:true,info:info});
     } catch(err) {
         return res.json({isOkay:false,err:err.message});
