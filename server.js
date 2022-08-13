@@ -43,7 +43,7 @@ app.post("/create",async(req, res) => {
 app.get("/get",async (req,res)=>{
     try{
         const goals = await Goal.find({});
-        console.log(goals);
+        // console.log(goals);
         return res.json({isOkay:true,info:goals});
     } catch(err) {
         return res.json({isOkay:false,info:err.message});
