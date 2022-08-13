@@ -61,8 +61,8 @@ app.post('/completed',async (req,res)=>{
     }
 });
 
-
-app.listen(8080,async ()=>{
+const PORT = process.env.PORT || 8080;
+app.listen(PORT,async ()=>{
     await mongooseConnection();
-    console.log("Server Started Running : 8080");
+    console.log("Server Started Running : "+process.env.PORT);
 });
