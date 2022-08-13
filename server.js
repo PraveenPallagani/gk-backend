@@ -17,7 +17,7 @@ const mongooseConnection = () => {
 }
 
 app.get("/", (req, res) => {
-    res.send("server is up and running "+process.env.PORT);
+    res.send("server is up and running on port "+process.env.PORT);
 });
 
 app.post("/create",async(req, res) => {
